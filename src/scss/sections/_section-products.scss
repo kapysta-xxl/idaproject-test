@@ -1,0 +1,314 @@
+.section-products{
+    min-width: 100%;
+    min-height: 100vh;
+    padding: 32px 0;
+    background: #E5E5E5;
+}
+
+.products{
+    display: grid;
+    grid-template-areas: 'sidebar products-body';
+    grid-template-columns: $sidebar-width 1fr;
+    column-gap: $gap;
+
+    @media (max-width: $screen-md){
+        grid-template-areas: none;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+}
+
+.sidebar{
+    grid-area: 'sidebar';
+    display: grid;
+    grid-template-columns: $sidebar-width;
+    align-content: start;
+    background: none;
+
+    @media (max-width: $screen-md){
+        margin-bottom: $gutter * 2;
+    }
+
+    &__title{
+       font-weight: 600;
+       font-size: 28px;
+       margin-bottom: $gutter;
+
+       @media (max-width: $screen-md){
+            justify-self: center;
+        }
+    }
+}
+
+.font{
+    color: $accent-color;
+    font-family: $font-v1;
+}
+
+.form{
+    width: $sidebar-width;
+    padding: $form-padding;
+    background: $white;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
+    border-radius: 4px;
+    position: sticky;
+    top: 0;
+
+    @media (max-width: $screen-md){
+        position: static;
+    }
+
+    &__item{
+        width: 100%;
+        margin-bottom: $gutter;
+        font-family: $font-v1;
+    }
+
+    &__item:last-of-type{
+        margin-bottom: 24px;
+    }
+
+    &__name{
+        font-size: $fz-v1;
+        color: #49485E;
+        margin-bottom: 4px;
+    }
+
+    &__field{
+        width: 100%;
+        height: $field-height;
+        padding: 10px 16px;
+        font-family: $font-v1;
+        font-size: $fz-v2;
+        color: $accent-color;
+        box-shadow: $shadow;
+        background: $white;
+        border-radius: 4px;
+        border: 1px solid transparent;
+    }
+
+    &__field::placeholder{
+        color: $gray;
+    }
+
+    &__field--textarea{
+        height: $field-height * 3;
+        resize: none;
+    }
+
+    &__button{
+        width: 100%;
+        padding: 10px 16px;
+        color: #fff;
+        background: #7BAE73;
+        font-family: $font-v2;
+        font-size: $fz-v2;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    &__button[disabled],
+    &__button:disabled{
+        background: #EEEEEE;
+        color: $gray;
+    }
+}
+
+.required-title{
+    position: relative;
+
+    &:after{
+        content: '';
+        width: 4px;
+        height: 4px;
+        background: $red;
+        border-radius: 4px;
+        position: absolute;
+        top: 0;
+        right: -4px;
+    }
+}
+
+.required-field{
+    border: 1px solid $red;
+}
+
+.products-body{
+    grid-area: 'products-body';
+    display: grid;
+    align-content: start;
+
+    &__list{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: $gap;
+
+        @media (max-width: $screen-md){
+            grid-template-columns: repeat(1, minmax(250px, 330px));
+        }
+    }
+}
+
+.filter{
+    justify-self: end;
+    align-self: start;
+    display: inline-grid;
+    min-width: 120px;
+    padding: 10px 16px;
+    background: $white;
+    margin-bottom: $gutter;
+    box-shadow: $shadow;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+
+    @media (max-width: $screen-md){
+        justify-self: center;
+    }
+
+    &__name{
+        padding-right: 10px;
+        font-size: $fz-v2;
+        color: $gray;
+        position: relative;
+
+        &:after{
+            content: '';
+            width: 5px;
+            height: 5px;
+            @include mask('/src/images/arrow.svg');
+            background-color: $gray;
+            position: absolute;
+            right: -3px;
+            top: 5px;
+        }
+    }
+
+    &__list{
+        display: none;
+        width: 100%;
+        background: $white;
+        text-align: center;
+        font-size: $fz-v2;
+        color: $gray;
+        border-radius: 4px;
+        position: absolute;
+        top: 37px;
+        left: 0;
+        z-index: 2;
+    }
+
+    &__item{
+        padding: 10px 0;
+        text-align: center;
+
+        &:hover{
+            color: $accent-color;
+        }
+    }
+
+    &--open{
+        .filter__list{
+            display: grid;
+        }
+    }
+}
+
+.product{
+    display: grid;
+    background: none;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
+    position: relative;
+
+    &__link{
+        width: 100%;
+        cursor: url('/src/images/cursor.svg'), pointer;
+        border-radius: 4px;
+        display: grid;
+        grid-template-rows: 200px 1fr;
+    }
+
+    &__link:visited,
+    &__link:link,
+    &__link:active{
+        color: $accent-color;
+    }
+
+    &__img{
+        width: 100%;
+        height: 200px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        overflow: hidden;
+    }
+
+    &__img img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 100%;
+    }
+
+    &__body{
+        background: $white;
+        padding: 16px 16px 24px 16px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        display: grid;
+        align-content: space-between;
+    }
+    
+    &__title{
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: $gutter;
+        line-height: 1.1;
+    }
+
+    &__desc{
+        font-size: 16px;
+        margin-bottom: $gutter * 2;
+    }
+
+    &__price{
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    &__button{
+        width: 32px;
+        height: 32px;
+        display: none;
+        align-content: center;
+        justify-content: center;
+        background: $red;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        cursor: url('/src/images/cursor.svg'), pointer;
+        position: absolute;
+        top: -6px;
+        right: -8px;
+
+        @media (max-width: $screen-md){
+            display: grid;
+        }
+    }
+
+    &__button span{
+        width: 13px;
+        height: 16px;
+        @include mask('/src/images/del.svg');
+        background-color: #fff;
+        
+        &:hover{
+            background-color: $accent-color;
+        }
+    }
+    
+    &:hover{
+        .product__button{
+            display: grid;
+        }
+    }
+}

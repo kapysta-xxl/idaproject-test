@@ -1,0 +1,4 @@
+@mixin mask($url){
+    mask: url($url) 50%/cover no-repeat;
+    -webkit-mask: url($url) 50%/cover no-repeat;
+}
